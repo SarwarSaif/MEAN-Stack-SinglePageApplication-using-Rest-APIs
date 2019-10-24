@@ -6,7 +6,7 @@ const Post = require('./models/post');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://Saif001:by5Ky6p0PypzxFyE@cluster0-bzdu4.mongodb.net/test?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://Saif001:by5Ky6p0PypzxFyE@cluster0-bzdu4.mongodb.net/node-angular?retryWrites=true&w=majority')
   .then(() => {
     console.log('Connection to Database Established!')
   })
@@ -34,7 +34,7 @@ app.post('/api/posts',(req, res, next) => {
     title: req.body.title,
     content: req.body.content
   });
-  console.log(post);
+  post.save();
   res.status(201).json({
     message: 'Post added succesfully'
   }); // Everything is OK : 201
