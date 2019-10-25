@@ -14,6 +14,7 @@ export class PostCreateComponent implements OnInit {
   enteredTitle = '';
   enteredContent = '';
   post: Post;
+  isLoading = false;
   mode = 'create';
   private postId: string;
 
@@ -24,7 +25,11 @@ export class PostCreateComponent implements OnInit {
       if (paramMam.has('postId')) {
         this.mode = 'edit';
         this.postId = paramMam.get('postId');
+        this.isLoading = true;
+        // Show spinner when we're fetching the result
         this.postsService.getPost(this.postId).subscribe(postData => {
+          // Hide spinner when we're done
+          this.isLoading = false;
           this.post = {id: postData._id,
                         title: postData.title,
                         content: postData.content};
@@ -40,6 +45,7 @@ export class PostCreateComponent implements OnInit {
     if (form.invalid) {
       return;
     }
+    this.isLoading = true;
     if (this.mode === 'create') {
       this.postsService.addPost(form.value.title, form.value.content);
     } else {
