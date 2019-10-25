@@ -1,8 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const postRoutes = require('./routes/posts');
 
 const app = express();
 
+mongoose.connect(
+  'mongodb+srv://Saif001:by5Ky6p0PypzxFyE@cluster0-bzdu4.mongodb.net/node-angular?retryWrites=true&w=majority',{useUnifiedTopology: true,  useNewUrlParser: true })
+  .then(() => {
+    console.log('Connection to Database Established!')
+  })
+  .catch(() => {
+    console.log('Connection to Database Failed!')
+  });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( {extended: false} ));
 
@@ -14,33 +25,11 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   );
   next();
 });
 
-app.post('/api/posts',(req, res, next) => {
-  const post = req.body;
-  console.log(post);
-  res.status(201).json({
-    message: 'Post added succesfully'
-  }); // Everything is OK : 201
-
-});
-
-app.get('/api/posts',(req, res, next) => {
-  const posts = [
-    { id: 'fad12421l',
-      title: 'First server-side post',
-      content: 'This is coming from the server'},
-    { id: 'fad12422l',
-      title: 'Second server-side post',
-      content: 'This is coming from the server!'}
-  ];
-  res.status(200).json({
-    message: 'Posts fetched successfully!',
-    posts: posts
-  });
-});
+app.use('/api/posts', postRoutes);
 
 module.exports = app;
