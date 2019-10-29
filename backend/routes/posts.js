@@ -73,11 +73,23 @@ multer({storage: storage}).single('image'),
 });
 
 router.get('',(req, res, next) => {
-  Post.find()
-    .then(documents => {
+  const pageSize = +req.query.pagesize; // Add '+' in front of queries to convert the strings into numeric
+  const currentPage = +req.query.page;
+  const postQuery = Post.find();
+  let fetchedPosts;
+  if (pageSize && currentPage) {
+    postQuery
+      .skip(pageSize * (currentPage - 1)) //Skip the number of posts depending on page number
+      .limit(pageSize); // and limit the next posts
+  }
+  postQuery.then(documents => { // chained queries
+    fetchedPosts = documents;
+      return Post.count();
+    }).then(count => {
       res.status(200).json({
         message: 'Posts fetched successfully!',
-        posts: documents
+        posts: fetchedPosts,
+        maxPosts: count
       });
     });
 
