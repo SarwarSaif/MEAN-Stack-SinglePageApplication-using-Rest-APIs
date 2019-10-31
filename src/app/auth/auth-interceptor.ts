@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const authToken = this.authService.getToken();
     // Clone the token to manipulate the token else it will cause unwanted side-effects
     const authRequest = req.clone({
-      headers: req.headers.set('Authorization', 'Bearer' + authToken) // Authorization is case insensitive
+      headers: req.headers.set('Authorization', 'Bearer ' + authToken) // Authorization is case insensitive
       // pass config to clone to edit
       // edit hesder to set a new header and overwrite it if none
 
