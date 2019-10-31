@@ -7,6 +7,11 @@ a {
   text-decoration: none;
   color: aliceblue;
 }
+
+ul {
+  display: flex;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
