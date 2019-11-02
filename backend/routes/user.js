@@ -38,7 +38,6 @@ router.post("/login", (req, res, next) => {
           message: 'Authentication Failed'
         });
       }
-      console.log(user, ' User re Paisi');
       fetchedUser = user;
       return bcrypt.compare(req.body.password, user.password);
     })
@@ -48,15 +47,14 @@ router.post("/login", (req, res, next) => {
           message: 'Authentication Failed'
         });
       }
-      console.log(result, ' result theke token banamu ekhn');
       // Created Json Web token
       const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id},
         'secret_this_should_be_longer',
         {expiresIn: '1h'}
       );
-      console.log(token, ' Aha amar token');
       res.status(200).json({
-        token: token
+        token: token,
+        expiresIn: 3600
       });
     })
     .catch(err => {

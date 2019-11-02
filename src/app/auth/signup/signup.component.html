@@ -25,7 +25,8 @@
     <button
       mat-raised-button
       color = "primary"
-      type="submit">Sign up
+      type="submit"
+      *ngIf="!isLoading">Sign up
     </button>
   </form>
 
