@@ -25,7 +25,8 @@
     <button
       mat-raised-button
       color = "primary"
-      type="submit">Log in
+      type="submit"
+      *ngIf="!isLoading">Log in
     </button>
   </form>
 
