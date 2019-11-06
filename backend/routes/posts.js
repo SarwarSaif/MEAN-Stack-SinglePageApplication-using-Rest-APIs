@@ -52,6 +52,10 @@ router.post(
         // imagePath: createdPost.imagePath
       }
     }); // Everything is OK : 201
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Post creation failed!'
+    });
   });
 });
 
@@ -82,6 +86,11 @@ multer({storage: storage}).single('image'),
         message: 'Sorry! your post can not be updated due to non-authorization.'
       }); // Everything is OK : 201
     }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Coudn't update post due to technical error occured!."
+    });
   });
 });
 
@@ -104,6 +113,11 @@ router.get('',(req, res, next) => {
         posts: fetchedPosts,
         maxPosts: count
       });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Coudn't fetched posts due to technical error occured!."
+      });
     });
 
 });
@@ -115,6 +129,10 @@ router.get('/:id', (req, res, next) =>{
     } else {
       res.status(404).json({message: 'Posts not found!'});
     }
+  }).catch(error => {
+    res.status(500).json({
+      message: "Coudn't fetched post due to technical error occured!."
+    });
   });
 });
 
@@ -136,6 +154,10 @@ checkAuth, (req, res, next) =>{
         message: 'Sorry! your post can not be deleted due to non-authorization.'
       }); // Everything is OK : 201
     }
+  }).catch(error => {
+    res.status(500).json({
+      message: "Coudn't delete the post due to technical error occured!."
+    });
   });
 });
 
