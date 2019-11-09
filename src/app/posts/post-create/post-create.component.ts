@@ -3,10 +3,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostsService } from '../poists.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import {mimeType} from './mime-type.validator';
-import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
@@ -27,14 +27,16 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
   constructor(
     public postsService: PostsService,
-    public route: ActivatedRoute) {}
-    private authService: AuthService;
+    public route: ActivatedRoute,
+    private authService: AuthService) {}
 
   ngOnInit() {
-    this.authStatusSub = this.authService.getAuthStatusListener()
-      .subscribe( authStatus => {
+    this.authStatusSub = this.authService
+    .getAuthStatusListener()
+    .subscribe(authStatus => {
         this.isLoading = false;
-      });
+    });
+
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
@@ -112,4 +114,5 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
+
 }
