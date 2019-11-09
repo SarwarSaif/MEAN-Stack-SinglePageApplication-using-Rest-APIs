@@ -9,7 +9,7 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 mongoose.connect(
-  'mongodb+srv://Saif001:by5Ky6p0PypzxFyE@cluster0-bzdu4.mongodb.net/node-angular?retryWrites=true&w=majority',{useUnifiedTopology: true,  useNewUrlParser: true })
+  'mongodb+srv://Saif001:'+ process.env.MONGO_ATLAS_PW +'@cluster0-bzdu4.mongodb.net/node-angular?retryWrites=true&w=majority',{useUnifiedTopology: true,  useNewUrlParser: true })
   .then(() => {
     console.log('Connection to Database Established!')
   })

@@ -47,7 +47,7 @@ exports.userLogin = (req, res, next) => {
       }
       // Created Json Web token
       const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id},
-        'secret_this_should_be_longer',
+        process.env.JWT_KEY,
         {expiresIn: '1h'}
       );
       res.status(200).json({
