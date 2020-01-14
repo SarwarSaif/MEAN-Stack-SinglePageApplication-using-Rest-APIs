@@ -1,10 +1,27 @@
-# MeanCourse
+# My Blog
+
+## Glimpse of the project
+
+![](./images/ss1.png)
+![](./images/ss2.png)
+![](./images/ss3.png)
+![](./images/ss4.png)
+
+## Development Tools
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
+
+## Backend
+
+Node.js, Express.js, MongoDb, Mongoose.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Node server
+
+Run `npm start:server` for a dev server. Navigate to `http://localhost:3000/`.
 
 ## Code scaffolding
 
